@@ -9,5 +9,7 @@ type Course {
 type Query {
   "Devuelve todos cursos"
   getCourses: [Course]
+  "Solo devuelve un curso"
+  getCourse(id: ID!): Course
 }
 
