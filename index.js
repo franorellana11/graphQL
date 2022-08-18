@@ -2,7 +2,22 @@
 const{graphql,buildSchema}=require('graphql')
 const schema=buildSchema(`
   type Query {
-    hello: String
+    hello: String,
+    saludo: String
   }
 `)
-graphql(schema,'{ hello }').then((data)=>{console.log(data)})
+
+// resolve
+
+const resolvers = {
+  hello: () => {
+    return "Hola Mundo"
+  },
+  saludo: () => {
+    return "Hola a todos"
+  }
+}
+
+
+
+graphql(schema,'{ saludo }', resolvers).then((data)=>{console.log(data)})
