@@ -1,25 +1,61 @@
 
+// "use strict";
+// const { graphql, buildSchema } = require("graphql");
+// const express = require("express");
+// const { graphqlHTTP } = require("express-graphql");
+// const { readFileSync } = require("fs")
+// const { join } = require("path")
+
+// const app = express();
+// const port = process.env.port || 3000;
+
+// const schema = buildSchema( readFileSync( join(
+//   __dirname, 'lib', 'schema.graphql'
+// ), "utf-8"))
+
+
+// const resolvers = {
+//   hello: () => {
+//     return "Hola Mundo";
+//   },
+// };
+// app.use(
+//   "/api",
+//   graphqlHTTP({ schema: schema, rootValue: resolvers, graphiql: true })
+// );
+// app.listen(port, () => {
+//   console.log(`Server is listening at http://localhost:${port}/api`);
+// });
+
+
+
+
 "use strict";
-const { graphql, buildSchema } = require("graphql");
+
+const { buildSchema } = require("graphql");
 const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
+const { readFileSync } = require("fs");
+const { join } = require("path");
+const resolvers = require("./lib/resolvers");
+
 const app = express();
 const port = process.env.port || 3000;
-const schema = buildSchema(`
-  type Query {
-    "Retorna un saludo al mundo"
-    hello: String
-  }
-`);
-const resolvers = {
-  hello: () => {
-    return "Hola Mundo";
-  },
-};
+
+// definiendo el esquema
+const schema = buildSchema(
+  readFileSync(join(__dirname, "lib", "schema.graphql"), "utf-8")
+);
+
 app.use(
   "/api",
-  graphqlHTTP({ schema: schema, rootValue: resolvers, graphiql: true })
+  graphqlHTTP({
+    schema: schema,
+    rootValue: resolvers,
+    graphiql: true,
+  })
 );
+
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}/api`);
 });
