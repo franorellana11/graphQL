@@ -15,13 +15,6 @@ const typeDefs = readFileSync(
   join(__dirname, "lib", "schema.graphql"),
   "utf-8"
 );
-
-
-// const typeDefs = readFileSync(
-//   readFileSync(join(__dirname, "lib", "schema.graphql"), "utf-8")
-// );
-
-// definiendo el esquema
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 app.use(
